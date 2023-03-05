@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- displays site properly based on user's device -->
+
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="./assets/images/favicon-32x32.png"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <title>Frontend Mentor | Multi-step form</title>
+
+    <!-- Feel free to remove these styles or customise in your own stylesheet 👍 -->
+  </head>
+  <body>
+    <main>
+      <div class="img-container">
+        <!-- <img
+          class="sidebar-mobile"
+          src="./assets/images/bg-sidebar-mobile.svg"
+          alt="bg-sidebar-mobile"
+        /> -->
+
+        <ul class="img-container-btn">
+          <li class="img-container-list">1</li>
+          <li class="img-container-list">2</li>
+          <li class="img-container-list">3</li>
+          <li class="img-container-list">4</li>
+        </ul>
+      </div>
+
+      <div class="form-container">
+        <div class="content-container">
+          <div class="info">
+            <h1 class="info-heading">Personal info</h1>
+            <p class="info-para">
+              Please provide your name, email address, and phone number
+            </p>
+          </div>
+
+          <form id="form">
+            <div class="label-input input-name">
+              <div class="label-alert">
+                <label for="name">Name</label>
+                <span class="alert">This Field is required</span>
+              </div>
+
+              <input id="name" name="name" type="text" placeholder="e.g. Stephen King" />
+            </div>
+
+            <div class="label-input input-email">
+              <div class="label-alert">
+                <label for="email">Email Address</label>
+                <span class="alert ">This Field is required</span>
+              </div>
+              <input
+                id="email"
+                name="email"
+                type="text"
+                placeholder="e.g. stephenking@lorem.com"
+              />
+            </div>
+
+            <div class="label-input input-phone">
+              <div class="label-alert">
+                <label for="phone">Phone Number</label>
+                <span class="alert">This Field is required</span>
+              </div>
+
+              <input
+                id="phone"
+                type="text"
+                name="phone"
+                placeholder=" e.g. +1 234 567 890"
+              />
+            </div>
+
+            <div class="btn-container"><button type="submit" id="submit">Next Step</button></div>
+          </form>
+        </div>
+      </div>
+    </main>
+
+    <!-- <div class="attribution">
+    Challenge by <a href="https://www.frontendmentor.io?ref=challenge" target="_blank">Frontend Mentor</a>. 
+    Coded by <a href="#">Your Name Here</a>.
+  </div> -->
+    <script src="app.js"></script>
+  </body>
+</html>
