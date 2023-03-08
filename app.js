@@ -11,14 +11,20 @@ const btns = document.querySelectorAll('.list-btn')
 const btn = document.querySelector('#submit');
 
 window.addEventListener("load", () => {
-  formPageOne()
+  // formPageOne()
   // formPageTwo()
-
+  formPageThree()
 });
 
 
 
 function formPageOne() {
+
+  const loaclData = localStorage.getItem("data")
+  const parsedData = JSON.parse(loaclData)
+
+  const { name, email, phone } = parsedData
+
 
 
   formContainer.innerHTML = `
@@ -40,6 +46,7 @@ function formPageOne() {
           <input
             id="name"
             name="name"
+            value=${name}
             type="text"
             placeholder="e.g. Stephen King"
           />
@@ -53,6 +60,7 @@ function formPageOne() {
           <input
             id="email"
             name="email"
+            value=${email}
             type="text"
             placeholder="e.g. stephenking@lorem.com"
           />
@@ -66,7 +74,8 @@ function formPageOne() {
 
           <input
             id="phone"
-            type="text"
+            type="tel"
+            value=${phone}
             name="phone"
             placeholder=" e.g. +1 234 567 890"
           />
@@ -80,8 +89,8 @@ function formPageOne() {
 
  
     </div>`
-    btns[0].style.backgroundColor = '#bfe2fd'
-    btns[0].style.color = '#02295a'
+  btns[0].style.backgroundColor = '#bfe2fd'
+  btns[0].style.color = '#02295a'
 
   const nextBtn = document.querySelector('.submit')
   const nameI = document.getElementById('name');
@@ -102,6 +111,11 @@ function formPageOne() {
     const { name, email, phone } = data
 
 
+    localStorage.setItem('data', JSON.stringify(data));
+
+
+
+
     if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)) {
       emailI.style.outline = '1px solid #473dff'
     } else {
@@ -119,11 +133,11 @@ function formPageOne() {
     //   return
     // }
 
-    if(!values.includes('')){
-    btns[0].style.backgroundColor = ''
-    btns[0].style.color = '#FFF'
-    formPageTwo()
-    }else{
+    if (!values.includes('')) {
+      btns[0].style.backgroundColor = ''
+      btns[0].style.color = '#FFF'
+      formPageTwo()
+    } else {
       console.log('empty');
     }
 
@@ -142,6 +156,9 @@ function formPageOne() {
     }
 
   })
+
+
+
 
 
 }
@@ -217,14 +234,18 @@ function formPageTwo() {
 
 
   const boxlistBtn = document.querySelectorAll('.box-list')
+  const boxlistBtn2 = document.querySelector('.box-list')
   const checkbox = document.querySelector('.toggle')
   const toggle = document.querySelector('.switch')
   const spanLight = document.querySelectorAll('.span-light')
+  const spanLight2 = document.querySelector('.span-light')
   const spanBlue = document.querySelectorAll('.span-blue')
   const month = document.querySelector('.toggle-month')
   const year = document.querySelector('.toggle-year')
   const prevBtn = document.querySelector('.prev')
+  const nextBtn = document.querySelector('.submit')
 
+  let price;
 
   boxlistBtn.forEach((btn, idx) => (
     btn.addEventListener("click", (e) => {
@@ -237,7 +258,6 @@ function formPageTwo() {
     })
   ))
 
-
   checkbox.checked ? year.style.color = '#9699ab' : year.style.color = '#02295a'
   !checkbox.checked ? month.style.color = '#9699ab' : month.style.color = '#02295a'
 
@@ -247,22 +267,35 @@ function formPageTwo() {
       spanBlue.forEach((item) => {
         item.classList.add('show-span-blue')
       })
-      // spanLight.forEach((item, idx) => (
-      spanLight[0].innerText = '$90/yr',
+
+        spanLight[0].innerText = '$90/yr',
         spanLight[1].innerText = '$120/yr',
         spanLight[2].innerText = '$150/yr'
-      // ))
+
+        boxlistBtn.forEach((item, idx) => {
+          if (item.classList.contains('box-list-style')) {
+            price = spanLight[idx].innerText
+          }
+        })
 
     } else {
       year.style.color = '#02295a'
       spanBlue.forEach((item) => {
         item.classList.remove('show-span-blue')
       })
-      // spanLight.forEach((item) => (
-      spanLight[0].innerText = '$9/mo',
+
+        spanLight[0].innerText = '$9/mo',
         spanLight[1].innerText = '$12/yr',
         spanLight[2].innerText = '$15/yr'
-      // ))
+
+        if(!checkbox.checked){
+                  boxlistBtn.forEach((item, idx) => {
+          if (item.classList.contains('box-list-style')) {
+            price =  spanLight[idx].innerText
+          }
+        })
+        }
+
     }
 
 
@@ -276,10 +309,128 @@ function formPageTwo() {
     formPageOne()
   })
 
+  nextBtn.addEventListener("click", () => {
+    btns[1].style.backgroundColor = ''
+    btns[1].style.color = '#FFF'
+    boxlistBtn.forEach((item, idx) => {
+      if (item.classList.contains('box-list-style')) {
+        price = spanLight[idx].innerText
+        localStorage.setItem('price', JSON.stringify(price));
+        formPageThree()
+      }
+    })
+  })
+
+
 }
 
-// btns.forEach((btn) => (
-//   btn.addEventListener("click", () => {
-//     formPageOne()
-//   })
-// ))
+function formPageThree() {
+
+  const localPrice = localStorage.getItem("price")
+  const parsedData = JSON.parse(localPrice )
+
+
+  btns[2].style.backgroundColor = '#bfe2fd'
+  btns[2].style.color = '#02295a'
+  formContainer.innerHTML = `
+  <div class="content-container">
+    <div class="info">
+         <div class="info">
+           <h1 class="info-heading"> Pick add-ons</h1>
+            <p class="info-para">
+          Add-ons help enhance your gaming experience.
+     </p>
+    </div>
+
+<ul class="boxes">
+
+<li class="box-list " data-index="0">
+<div class="box">
+<label class="container-checkbox">
+  <input type="checkbox" class="checkbox">
+  <span class="checkmark"></span>
+</label>
+
+<div class="box-info-container">
+<div class="box-info">
+<span class="span-bold" >Online service</span>
+<span class="span-light" >Access to multiplayer games</span>
+</div>
+
+
+<span class="span-price">${parsedData.includes('mo') ? '+$1/mo' : '+$10/yr'}</span>
+</div>
+</div>
+</li>
+
+
+<li class="box-list" data-index="1">
+<div class="box">
+
+<label class="container-checkbox">
+  <input type="checkbox" class="checkbox">
+  <span class="checkmark"></span>
+</label>
+
+<div class="box-info-container">
+<div class="box-info">
+<span class="span-bold" >Larger storage</span>
+<span class="span-light" > Extra 1TB of cloud save</span>
+</div>
+<span class="span-price">${parsedData.includes('mo') ? '+$2/mo' : '+$20/yr'}</span>
+</div>
+
+</div>
+</li>
+
+
+<li class="box-list" data-index="2">
+<div class="box">
+
+<label class="container-checkbox">
+  <input type="checkbox" class="checkbox">
+  <span class="checkmark"></span>
+</label>
+
+<div class="box-info-container">
+<div class="box-info">
+<span class="span-bold" >Customizable Profile</span>
+<span class="span-light" >Custom theme on your profile</span>
+</div>
+<span class="span-price">${parsedData.includes('mo') ? '+$2/mo' : '+$20/yr'}</span>
+</div>
+
+</div>
+</li>
+
+</ul>
+
+
+
+
+<div class="btn-container">
+<button class="prev">Go Back</button>
+<button type="submit" class="submit" id="submit">Next Step</button>
+</div>
+
+  </div>`
+
+  const checkbox = document.querySelectorAll(".checkbox")
+  const boxLi = document.querySelectorAll('.box-list')
+  const prevBtn = document.querySelector('.prev')
+
+  checkbox.forEach((check, idx) => (
+    check.addEventListener("click", () => {
+      boxLi[idx].classList.toggle('box-list-style')
+    })
+  ))
+
+
+  prevBtn.addEventListener("click", () => {
+    btns[2].style.backgroundColor = ''
+    btns[2].style.color = '#FFF'
+    formPageTwo()
+  })
+
+}
+
