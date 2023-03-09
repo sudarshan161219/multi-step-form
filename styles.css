@@ -313,6 +313,23 @@ form {
     align-items: center;
 }
 
+.Confirm{
+    padding: 0.8rem;
+    border: 0;
+    border-radius: 8px;
+    background-color: var(--color-Purplishblue);
+    color: var(--color-Lightgray);
+    font-size: 1rem;
+    font-weight: 700;
+    letter-spacing: 1.1px;
+}
+
+.Confirm:hover {
+    cursor: pointer;
+    opacity: 0.9;
+    transition: ease 0.3s;
+}
+
 .btn-container>.submit {
     padding: 0.8rem;
     border: 0;
@@ -587,4 +604,27 @@ form {
 .span-price{
     color: var(--color-Purplishblue);
     font-weight: 400;
+}
+
+.plan-li{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.para-price, .para-span-price {
+color: var(--color-Marineblue);
+font-weight: 700;
+}
+
+.span-cont{
+    display: grid;
+    gap: 0.3rem;
+}
+
+.span-change{
+	-webkit-tap-highlight-color: transparent;
+    cursor: pointer;
+    text-decoration: underline;
+    color: var(--color-Coolgray);
 }

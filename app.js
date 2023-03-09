@@ -13,7 +13,8 @@ const btn = document.querySelector('#submit');
 window.addEventListener("load", () => {
   // formPageOne()
   // formPageTwo()
-  formPageThree()
+  // formPageThree()
+  formPageFour()
 });
 
 
@@ -234,11 +235,10 @@ function formPageTwo() {
 
 
   const boxlistBtn = document.querySelectorAll('.box-list')
-  const boxlistBtn2 = document.querySelector('.box-list')
   const checkbox = document.querySelector('.toggle')
   const toggle = document.querySelector('.switch')
+  const spanBold = document.querySelectorAll('.span-bold')
   const spanLight = document.querySelectorAll('.span-light')
-  const spanLight2 = document.querySelector('.span-light')
   const spanBlue = document.querySelectorAll('.span-blue')
   const month = document.querySelector('.toggle-month')
   const year = document.querySelector('.toggle-year')
@@ -268,15 +268,15 @@ function formPageTwo() {
         item.classList.add('show-span-blue')
       })
 
-        spanLight[0].innerText = '$90/yr',
+      spanLight[0].innerText = '$90/yr',
         spanLight[1].innerText = '$120/yr',
         spanLight[2].innerText = '$150/yr'
 
-        boxlistBtn.forEach((item, idx) => {
-          if (item.classList.contains('box-list-style')) {
-            price = spanLight[idx].innerText
-          }
-        })
+      boxlistBtn.forEach((item, idx) => {
+        if (item.classList.contains('box-list-style')) {
+          price = spanLight[idx].innerText
+        }
+      })
 
     } else {
       year.style.color = '#02295a'
@@ -284,17 +284,17 @@ function formPageTwo() {
         item.classList.remove('show-span-blue')
       })
 
-        spanLight[0].innerText = '$9/mo',
+      spanLight[0].innerText = '$9/mo',
         spanLight[1].innerText = '$12/yr',
         spanLight[2].innerText = '$15/yr'
 
-        if(!checkbox.checked){
-                  boxlistBtn.forEach((item, idx) => {
+      if (!checkbox.checked) {
+        boxlistBtn.forEach((item, idx) => {
           if (item.classList.contains('box-list-style')) {
-            price =  spanLight[idx].innerText
+            price = spanLight[idx].innerText
           }
         })
-        }
+      }
 
     }
 
@@ -315,7 +315,9 @@ function formPageTwo() {
     boxlistBtn.forEach((item, idx) => {
       if (item.classList.contains('box-list-style')) {
         price = spanLight[idx].innerText
+        plan = spanBold[idx].innerText
         localStorage.setItem('price', JSON.stringify(price));
+        localStorage.setItem('plan', JSON.stringify(plan));
         formPageThree()
       }
     })
@@ -327,7 +329,7 @@ function formPageTwo() {
 function formPageThree() {
 
   const localPrice = localStorage.getItem("price")
-  const parsedData = JSON.parse(localPrice )
+  const parsedData = JSON.parse(localPrice)
 
 
   btns[2].style.backgroundColor = '#bfe2fd'
@@ -418,6 +420,13 @@ function formPageThree() {
   const checkbox = document.querySelectorAll(".checkbox")
   const boxLi = document.querySelectorAll('.box-list')
   const prevBtn = document.querySelector('.prev')
+  const nextBtn = document.querySelector('.submit')
+  const boxlistBtn = document.querySelectorAll('.box-list')
+  const spanLight = document.querySelectorAll('.span-light')
+  const spanBold = document.querySelectorAll('.span-bold')
+  const spanPrice = document.querySelectorAll('.span-price')
+  let listItems = []
+
 
   checkbox.forEach((check, idx) => (
     check.addEventListener("click", () => {
@@ -432,5 +441,92 @@ function formPageThree() {
     formPageTwo()
   })
 
+  nextBtn.addEventListener("click", () => {
+    btns[2].style.backgroundColor = ''
+    btns[2].style.color = '#FFF'
+    boxlistBtn.forEach((item, idx) => {
+      if (item.classList.contains('box-list-style')) {
+        const addOns =
+        {
+          title: spanBold[idx].innerText,
+          info: spanLight[idx].innerText,
+          price: spanPrice[idx].innerText,
+        }
+
+        listItems.push(addOns)
+        localStorage.setItem('addons', JSON.stringify(listItems));
+      }
+    })
+  })
+
 }
 
+
+function formPageFour() {
+
+  btns[3].style.backgroundColor = '#bfe2fd'
+  btns[3].style.color = '#02295a'
+
+  const localPrice = localStorage.getItem("price")
+  const plan = localStorage.getItem("plan")
+  const addOnS = localStorage.getItem("addons")
+  const parsedAddons = JSON.parse(addOnS)
+  const parsedPrice = JSON.parse(localPrice)
+  const parsedPlan = JSON.parse(plan)
+
+  parsedAddons.map((item) => (
+    console.log(item.title, item.price)
+  ))
+
+  // console.log(parsedplan, parsedData);
+
+  formContainer.innerHTML = `
+  <div class="content-container">
+    <div class="info">
+         <div class="info">
+           <h1 class="info-heading">Finishing up</h1>
+            <p class="info-para">
+         Double-check everything looks OK before confirming.
+     </p>
+    </div>
+
+
+<ul>
+
+<li class="plan-li">
+<div class="span-cont" >
+<p class="para-price">
+${parsedPlan} 
+ (<span>${parsedPrice.includes('mo') ? 'Monthly' : 'yearly'}</span>)
+ </p>
+<span class="span-change">Change</span>
+</div>
+<span class="para-span-price">${parsedPrice}</span>
+</li>
+
+
+${parsedAddons.map(item => (
+    (`  <li class='plan-li' > 
+ <span> ${item.title}</span>
+ <span> ${item.price}</span>
+ </li>`)
+
+  )).join('<br\>')}
+
+
+
+
+  
+
+
+
+</ul>
+
+
+<div class="btn-container">
+<button class="prev">Go Back</button>
+<button type="submit" class=" Confirm" id="submit">Confirm</button>
+</div>
+
+  </div>`
+}
