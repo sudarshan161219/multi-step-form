@@ -76,8 +76,8 @@ function formPageOne() {
           <input
             id="phone"
             type="tel"
-            value=${phone}
             name="phone"
+            value=${phone}
             placeholder=" e.g. +1 234 567 890"
           />
         </div>
@@ -166,6 +166,7 @@ function formPageOne() {
 
 
 function formPageTwo() {
+
   btns[1].style.backgroundColor = '#bfe2fd'
   btns[1].style.color = '#02295a'
   formContainer.innerHTML = `
@@ -184,7 +185,7 @@ function formPageTwo() {
 <img src="./assets/images/icon-arcade.svg" alt="arcade" />
 <div class="box-info">
 <span class="span-bold" >Arcade</span>
-<span class="span-light" >$9/mo</span>
+<P class="light">$<span class="span-light" >9/mo</span></P>
 <span class="span-blue" >2 months free</span>
 </div>
 </div>
@@ -196,7 +197,8 @@ function formPageTwo() {
 <img src="./assets/images/icon-advanced.svg" alt="advanced" />
 <div class="box-info">
 <span class="span-bold" >Advanced</span>
-<span class="span-light" >$12/mo</span>
+
+<P class="light">$<span class="span-light" >12/mo</span></P>
 <span class="span-blue" >2 months free</span>
 </div>
 </div>
@@ -208,7 +210,7 @@ function formPageTwo() {
 <img src="./assets/images/icon-pro.svg" alt="pro" />
 <div class="box-info">
 <span class="span-bold" >Pro</span>
-<span class="span-light" >$15/mo</span>
+<P class="light">$<span class="span-light" >15/mo</span></P>
 <span class="span-blue" >2 months free</span>
 </div>
 </div>
@@ -268,9 +270,9 @@ function formPageTwo() {
         item.classList.add('show-span-blue')
       })
 
-      spanLight[0].innerText = '$90/yr',
-        spanLight[1].innerText = '$120/yr',
-        spanLight[2].innerText = '$150/yr'
+      spanLight[0].innerText = '90/yr',
+        spanLight[1].innerText = '120/yr',
+        spanLight[2].innerText = '150/yr'
 
       boxlistBtn.forEach((item, idx) => {
         if (item.classList.contains('box-list-style')) {
@@ -284,9 +286,9 @@ function formPageTwo() {
         item.classList.remove('show-span-blue')
       })
 
-      spanLight[0].innerText = '$9/mo',
-        spanLight[1].innerText = '$12/yr',
-        spanLight[2].innerText = '$15/yr'
+      spanLight[0].innerText = '9/mo',
+        spanLight[1].innerText = '12/mo',
+        spanLight[2].innerText = '15/mo'
 
       if (!checkbox.checked) {
         boxlistBtn.forEach((item, idx) => {
@@ -330,6 +332,7 @@ function formPageThree() {
 
   const localPrice = localStorage.getItem("price")
   const parsedData = JSON.parse(localPrice)
+  const checkParsedData = parsedData.includes('mo')
 
 
   btns[2].style.backgroundColor = '#bfe2fd'
@@ -359,8 +362,13 @@ function formPageThree() {
 <span class="span-light" >Access to multiplayer games</span>
 </div>
 
+<p class= "span-price-p">
++$<span class="span-price">${checkParsedData ? 1 : 10}</span>
+${checkParsedData ? "/mo" : '/yr'}
+</p>
 
-<span class="span-price">${parsedData.includes('mo') ? '+$1/mo' : '+$10/yr'}</span>
+
+
 </div>
 </div>
 </li>
@@ -379,7 +387,12 @@ function formPageThree() {
 <span class="span-bold" >Larger storage</span>
 <span class="span-light" > Extra 1TB of cloud save</span>
 </div>
-<span class="span-price">${parsedData.includes('mo') ? '+$2/mo' : '+$20/yr'}</span>
+
+<p class= "span-price-p">
++$<span class="span-price">${checkParsedData ? 2 : 20}</span>
+${checkParsedData ? "/mo" : '/yr'}
+</p>
+
 </div>
 
 </div>
@@ -399,7 +412,10 @@ function formPageThree() {
 <span class="span-bold" >Customizable Profile</span>
 <span class="span-light" >Custom theme on your profile</span>
 </div>
-<span class="span-price">${parsedData.includes('mo') ? '+$2/mo' : '+$20/yr'}</span>
+<p class= "span-price-p">
++$<span class="span-price">${checkParsedData ? 2 : 20}</span>
+${checkParsedData ? "/mo" : '/yr'}
+</p>
 </div>
 
 </div>
@@ -426,11 +442,24 @@ function formPageThree() {
   const spanBold = document.querySelectorAll('.span-bold')
   const spanPrice = document.querySelectorAll('.span-price')
   let listItems = []
-
+  let listNum = []
 
   checkbox.forEach((check, idx) => (
     check.addEventListener("click", () => {
       boxLi[idx].classList.toggle('box-list-style')
+      if (check.checked) {
+        const addOns =
+        {
+          title: spanBold[idx].innerText,
+          info: spanLight[idx].innerText,
+          price: spanPrice[idx].innerText,
+        }
+
+        listNum.push(spanPrice[idx].innerText)
+        listItems.push(addOns)
+        localStorage.setItem('addons', JSON.stringify(listItems));
+        localStorage.setItem('addNum', JSON.stringify(listNum));
+      }
     })
   ))
 
@@ -441,22 +470,20 @@ function formPageThree() {
     formPageTwo()
   })
 
+  const loaclData = localStorage.getItem("addons")
+  const parsedDataAddons = JSON.parse(loaclData)
+
   nextBtn.addEventListener("click", () => {
     btns[2].style.backgroundColor = ''
     btns[2].style.color = '#FFF'
-    boxlistBtn.forEach((item, idx) => {
-      if (item.classList.contains('box-list-style')) {
-        const addOns =
-        {
-          title: spanBold[idx].innerText,
-          info: spanLight[idx].innerText,
-          price: spanPrice[idx].innerText,
-        }
 
-        listItems.push(addOns)
-        localStorage.setItem('addons', JSON.stringify(listItems));
+    checkbox.forEach((check, idx) => {
+
+      if (!check.checked) {
+        loaclData ? localStorage.removeItem("addons") : null
       }
     })
+    formPageFour()
   })
 
 }
@@ -474,11 +501,55 @@ function formPageFour() {
   const parsedPrice = JSON.parse(localPrice)
   const parsedPlan = JSON.parse(plan)
 
-  parsedAddons.map((item) => (
-    console.log(item.title, item.price)
-  ))
+  const loaclNum = localStorage.getItem("addNum")
+  const parsedDataNum = JSON.parse(loaclNum)
 
-  // console.log(parsedplan, parsedData);
+// console.log(parsedDataNum);
+
+  let toNum
+  let strPrice
+  let strLPrice
+  let total1
+  let total2
+  let total
+
+
+  for (let index = 0; index < parsedDataNum.length; index++) {
+    const element1 = parsedDataNum[0];
+    // const element2 = parsedDataNum[1];
+    // const element3 = parsedDataNum[2];
+    // const totalAdd = +element1 + +element2 + +element3
+
+    // console.log(totalAdd);
+    
+  }
+  // parsedDataNum.forEach((item) => {
+  //   console.log(item);
+  // })
+
+  // parsedAddons.forEach((item, idx) => {
+    // strPrice = item.price.split('mo').join("").split('/').join("").split('yr').join("").split('+').join("").split('$').join("")
+    // total1 = Number(strPrice)
+    // const element1 = item[0].price;
+    // const element2 = item[1].price;
+    // const element3 = item[2].price;
+    // const totalAdd = Number(element1) + Number(element2) + Number(element3)
+
+
+// console.log(item[0].price);
+//     strLPrice = parsedPrice.split('mo').join("").split('/').join("").split('yr').join("").split('+').join("").split('$').join("")
+//     total2 = Number(strLPrice)
+
+
+    // console.log(total1 + total2);
+    // console.log(parsedAddons[0]);
+    // addOn(total1 , total2)
+  // })
+
+
+  function addOn(fn, sc) {
+    return  total  = fn + sc
+  }
 
   formContainer.innerHTML = `
   <div class="content-container">
@@ -491,7 +562,7 @@ function formPageFour() {
     </div>
 
 
-<ul>
+<ul class="finishing-up-li">
 
 <li class="plan-li">
 <div class="span-cont" >
@@ -501,24 +572,25 @@ ${parsedPlan}
  </p>
 <span class="span-change">Change</span>
 </div>
-<span class="para-span-price">${parsedPrice}</span>
+<span class="para-span-price">$${parsedPrice}</span>
 </li>
 
 
-${parsedAddons.map(item => (
+${parsedAddons ? parsedAddons.map(item => (
     (`  <li class='plan-li' > 
- <span> ${item.title}</span>
- <span> ${item.price}</span>
+ <span class="li-span"> ${item.title}</span>
+ <span class="li-span-price"> ${item.price}/${parsedPrice.includes('mo') ? 'mo' : 'yr'}</span>
  </li>`)
 
-  )).join('<br\>')}
+  )).join('<br\>') : ''}
 
-
-
-
-  
-
-
+  <li class='plan-li-last' > 
+  <p class="para-total">
+  Total 
+   (<span>per ${parsedPrice.includes('mo') ? 'month' : 'year'}</span>)
+   </p>
+ <span class="li-span-price">${total}</span>
+ </li>
 
 </ul>
 
@@ -529,4 +601,21 @@ ${parsedAddons.map(item => (
 </div>
 
   </div>`
+
+
+  const prevBtn = document.querySelector('.prev')
+  const changeBtn = document.querySelector('.span-change')
+
+  prevBtn.addEventListener("click", () => {
+    btns[3].style.backgroundColor = ''
+    btns[3].style.color = '#FFF'
+    formPageThree()
+  })
+
+  changeBtn.addEventListener("click", () => {
+    formPageTwo()
+  })
+
+
+
 }

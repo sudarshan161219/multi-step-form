@@ -229,12 +229,11 @@ form {
 
 .content-container {
     background-color: var(--color-Alabaster);
-    /* background-color: aqua; */
     position: absolute;
     left: 0;
     top: 135%;
     border-radius: 10px;
-    padding: 1rem;
+    padding: 2rem 1.5rem;
     height: 500px;
 }
 
@@ -601,7 +600,7 @@ form {
     transform: rotate(45deg);
 }
 
-.span-price{
+.span-price, .span-price-p{
     color: var(--color-Purplishblue);
     font-weight: 400;
 }
@@ -622,9 +621,29 @@ font-weight: 700;
     gap: 0.3rem;
 }
 
+.finishing-up-li > li, .light{
+    color: var(--color-Coolgray);
+}
+
 .span-change{
 	-webkit-tap-highlight-color: transparent;
     cursor: pointer;
     text-decoration: underline;
     color: var(--color-Coolgray);
+}
+
+.plan-li:nth-child(2){
+margin-top: 2rem;
+}
+
+.plan-li-last{
+    margin-top: 3rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.li-span-price{
+    color: var(--color-Marineblue);
+    font-weight: 400;
 }
