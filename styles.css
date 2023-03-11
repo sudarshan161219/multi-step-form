@@ -274,7 +274,7 @@ form {
     color: var(--color-Coolgray);
 }
 
-.form-btn-container{
+.form-btn-container {
     margin-top: 5rem;
     bottom: -50%;
     width: 100%;
@@ -284,7 +284,7 @@ form {
 }
 
 
-.form-btn-container > button {
+.form-btn-container>button {
     padding: 0.8rem;
     border: 0;
     border-radius: 8px;
@@ -296,7 +296,7 @@ form {
 }
 
 
-.form-btn-container > button:hover {
+.form-btn-container>button:hover {
     cursor: pointer;
     opacity: 0.9;
     transition: ease 0.3s;
@@ -312,7 +312,7 @@ form {
     align-items: center;
 }
 
-.Confirm{
+.Confirm {
     padding: 0.8rem;
     border: 0;
     border-radius: 8px;
@@ -523,7 +523,7 @@ form {
     display: block;
 }
 
-.box-info-container{
+.box-info-container {
     width: 100%;
     display: flex;
     align-items: center;
@@ -566,12 +566,12 @@ form {
 }
 
 /* On mouse-over, add a grey background color */
-.container-checkbox:hover input ~ .checkmark {
+.container-checkbox:hover input~.checkmark {
     background-color: #ccc;
 }
 
 /* When the checkbox is checked, add a blue background */
-.container-checkbox input:checked ~ .checkmark {
+.container-checkbox input:checked~.checkmark {
     background-color: var(--color-Purplishblue);
 }
 
@@ -583,7 +583,7 @@ form {
 }
 
 /* Show the checkmark when checked */
-.container-checkbox input:checked ~ .checkmark:after {
+.container-checkbox input:checked~.checkmark:after {
     display: block;
 }
 
@@ -600,50 +600,87 @@ form {
     transform: rotate(45deg);
 }
 
-.span-price, .span-price-p{
+.span-price,
+.span-price-p {
     color: var(--color-Purplishblue);
     font-weight: 400;
 }
 
-.plan-li{
+.plan-li {
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
-.para-price, .para-span-price {
-color: var(--color-Marineblue);
-font-weight: 700;
+.para-price,
+.para-span-price {
+    color: var(--color-Marineblue);
+    font-weight: 700;
 }
 
-.span-cont{
+.span-cont {
     display: grid;
     gap: 0.3rem;
 }
 
-.finishing-up-li > li, .light{
+.finishing-up-li>li,
+.light {
     color: var(--color-Coolgray);
 }
 
-.span-change{
-	-webkit-tap-highlight-color: transparent;
+.span-change {
+    -webkit-tap-highlight-color: transparent;
     cursor: pointer;
     text-decoration: underline;
     color: var(--color-Coolgray);
 }
 
-.plan-li:nth-child(2){
-margin-top: 2rem;
+.plan-li:nth-child(2) {
+    margin-top: 2rem;
 }
 
-.plan-li-last{
+.plan-li-last {
     margin-top: 3rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
-.li-span-price{
+.li-span-price {
     color: var(--color-Marineblue);
     font-weight: 400;
+}
+
+.para-total-bold {
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: var(--color-Purplishblue);
+}
+
+.content {
+    margin-top: 3rem;
+    display: grid;
+    gap: 1rem;
+    justify-items: center;
+}
+
+.text-content {
+    text-align: center;
+    display: grid;
+    gap: 1rem;
+    padding: 1rem 3rem;
+}
+
+.text-content>h1 {
+    font-size: 1.8rem;
+    color: var(--color-Marineblue);
+    font-weight: 700;
+}
+
+.text-content>p {
+    line-height: 1.5;
+    font-size: 1.1rem;
+    font-weight: 400;
+    color: var(--color-Coolgray);
+    letter-spacing: 1.1px;
 }

@@ -12,9 +12,10 @@ const btn = document.querySelector('#submit');
 
 window.addEventListener("load", () => {
   // formPageOne()
-  // formPageTwo()
-  // formPageThree()
-  formPageFour()
+  formPageTwo()
+  formPageThree()
+  // formPageFour()
+  // formPageFive()
 });
 
 
@@ -24,9 +25,12 @@ function formPageOne() {
   const loaclData = localStorage.getItem("data")
   const parsedData = JSON.parse(loaclData)
 
-  const { name, email, phone } = parsedData
 
 
+  // if(loaclData ) {
+  //   const { name, email, phone } = parsedData
+  //   return
+  // }
 
   formContainer.innerHTML = `
     <div class="content-container">
@@ -47,7 +51,7 @@ function formPageOne() {
           <input
             id="name"
             name="name"
-            value=${name}
+            value=${loaclData ? parsedData.name : "Stephen King"}
             type="text"
             placeholder="e.g. Stephen King"
           />
@@ -61,7 +65,7 @@ function formPageOne() {
           <input
             id="email"
             name="email"
-            value=${email}
+            value=${loaclData ? parsedData.email : "stephenking@lorem.com"}
             type="text"
             placeholder="e.g. stephenking@lorem.com"
           />
@@ -77,7 +81,7 @@ function formPageOne() {
             id="phone"
             type="tel"
             name="phone"
-            value=${phone}
+            value=${loaclData ? parsedData.phone : "+1-234-567-890"}
             placeholder=" e.g. +1 234 567 890"
           />
         </div>
@@ -93,12 +97,9 @@ function formPageOne() {
   btns[0].style.backgroundColor = '#bfe2fd'
   btns[0].style.color = '#02295a'
 
-  const nextBtn = document.querySelector('.submit')
-  const nameI = document.getElementById('name');
+
   const emailI = document.getElementById('email');
-  const phoneI = document.getElementById('phone');
   const form = document.getElementById('form');
-  const btn = document.querySelector('#submit');
   const alertName = document.querySelector('.input-name .alert')
   const alertEmail = document.querySelector('.input-email .alert')
   const alertPhone = document.querySelector('.input-phone .alert')
@@ -111,11 +112,7 @@ function formPageOne() {
 
     const { name, email, phone } = data
 
-
     localStorage.setItem('data', JSON.stringify(data));
-
-
-
 
     if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)) {
       emailI.style.outline = '1px solid #473dff'
@@ -127,12 +124,6 @@ function formPageOne() {
     name === '' ? alertName.classList.add('show-alert') : alertName.classList.remove('show-alert')
     email === '' ? alertEmail.classList.add('show-alert') : alertEmail.classList.remove('show-alert')
     phone === '' ? alertPhone.classList.add('show-alert') : alertPhone.classList.remove('show-alert')
-
-    // if (name && email && phone) {
-    //   e.currentTarget.reset()
-    // } else {
-    //   return
-    // }
 
     if (!values.includes('')) {
       btns[0].style.backgroundColor = ''
@@ -441,12 +432,16 @@ ${checkParsedData ? "/mo" : '/yr'}
   const spanLight = document.querySelectorAll('.span-light')
   const spanBold = document.querySelectorAll('.span-bold')
   const spanPrice = document.querySelectorAll('.span-price')
+  const loaclData = localStorage.getItem("addons")
+  const loaclNum = localStorage.getItem("addNum")
   let listItems = []
   let listNum = []
+
 
   checkbox.forEach((check, idx) => (
     check.addEventListener("click", () => {
       boxLi[idx].classList.toggle('box-list-style')
+
       if (check.checked) {
         const addOns =
         {
@@ -460,6 +455,11 @@ ${checkParsedData ? "/mo" : '/yr'}
         localStorage.setItem('addons', JSON.stringify(listItems));
         localStorage.setItem('addNum', JSON.stringify(listNum));
       }
+
+      if (!check.checked) {
+        loaclNum ? localStorage.removeItem("addNum") : null
+        listNum.pop(spanPrice[idx].innerText)
+      }
     })
   ))
 
@@ -470,8 +470,7 @@ ${checkParsedData ? "/mo" : '/yr'}
     formPageTwo()
   })
 
-  const loaclData = localStorage.getItem("addons")
-  const parsedDataAddons = JSON.parse(loaclData)
+
 
   nextBtn.addEventListener("click", () => {
     btns[2].style.backgroundColor = ''
@@ -480,7 +479,8 @@ ${checkParsedData ? "/mo" : '/yr'}
     checkbox.forEach((check, idx) => {
 
       if (!check.checked) {
-        loaclData ? localStorage.removeItem("addons") : null
+        // loaclData ? localStorage.removeItem("addons") : null
+        loaclNum ? localStorage.removeItem("addNum") : null
       }
     })
     formPageFour()
@@ -490,7 +490,7 @@ ${checkParsedData ? "/mo" : '/yr'}
 
 
 function formPageFour() {
-
+ 
   btns[3].style.backgroundColor = '#bfe2fd'
   btns[3].style.color = '#02295a'
 
@@ -500,56 +500,47 @@ function formPageFour() {
   const parsedAddons = JSON.parse(addOnS)
   const parsedPrice = JSON.parse(localPrice)
   const parsedPlan = JSON.parse(plan)
-
   const loaclNum = localStorage.getItem("addNum")
   const parsedDataNum = JSON.parse(loaclNum)
+  let uniqueArray
+  let arr
+  function removeDuplicates() {
+    if (parsedAddons.length > 2) {
+      let jsonObject = parsedAddons.map(JSON.stringify)
 
-// console.log(parsedDataNum);
+      let uniqueSet = new Set(jsonObject);
+      uniqueArray = Array.from(uniqueSet).map(JSON.parse);
 
-  let toNum
-  let strPrice
-  let strLPrice
-  let total1
-  let total2
-  let total
-
-
-  for (let index = 0; index < parsedDataNum.length; index++) {
-    const element1 = parsedDataNum[0];
-    // const element2 = parsedDataNum[1];
-    // const element3 = parsedDataNum[2];
-    // const totalAdd = +element1 + +element2 + +element3
-
-    // console.log(totalAdd);
-    
+     return uniqueArray
+    } else {
+      return parsedAddons
+    }
   }
-  // parsedDataNum.forEach((item) => {
-  //   console.log(item);
-  // })
+  removeDuplicates()
 
-  // parsedAddons.forEach((item, idx) => {
-    // strPrice = item.price.split('mo').join("").split('/').join("").split('yr').join("").split('+').join("").split('$').join("")
-    // total1 = Number(strPrice)
-    // const element1 = item[0].price;
-    // const element2 = item[1].price;
-    // const element3 = item[2].price;
-    // const totalAdd = Number(element1) + Number(element2) + Number(element3)
+  let sum = 0;
+  let strLPrice = parsedPrice.split('mo').join("").split('/').join("").split('yr').join("").split('+').join("").split('$').join("")
+  let toNum = Number(strLPrice)
+  // let newArr = [...new Set(parsedAddons)]
 
+  if (loaclNum) {
+    let numberArr = parsedDataNum.map(Number)
+    sumArray(numberArr);
 
-// console.log(item[0].price);
-//     strLPrice = parsedPrice.split('mo').join("").split('/').join("").split('yr').join("").split('+').join("").split('$').join("")
-//     total2 = Number(strLPrice)
-
-
-    // console.log(total1 + total2);
-    // console.log(parsedAddons[0]);
-    // addOn(total1 , total2)
-  // })
-
-
-  function addOn(fn, sc) {
-    return  total  = fn + sc
   }
+
+
+  function sumArray(array) {
+
+    array.forEach(item => {
+      sum += item;
+    });
+
+    return sum;
+  }
+
+  let total = toNum + sum
+
 
   formContainer.innerHTML = `
   <div class="content-container">
@@ -576,20 +567,33 @@ ${parsedPlan}
 </li>
 
 
-${parsedAddons ? parsedAddons.map(item => (
+${parsedAddons.length > 2  ? uniqueArray.map(item => (
     (`  <li class='plan-li' > 
  <span class="li-span"> ${item.title}</span>
- <span class="li-span-price"> ${item.price}/${parsedPrice.includes('mo') ? 'mo' : 'yr'}</span>
+ <span class="li-span-price">+$${item.price}/${parsedPrice.includes('mo') ? 'mo' : 'yr'}</span>
  </li>`)
 
-  )).join('<br\>') : ''}
+  )).join('<br\>') : 
+
+  parsedAddons.map(item => (
+    (`  <li class='plan-li' > 
+ <span class="li-span"> ${item.title}</span>
+ <span class="li-span-price">+$${item.price}/${parsedPrice.includes('mo') ? 'mo' : 'yr'}</span>
+ </li>`)
+
+  )).join('<br\>')
+
+}
 
   <li class='plan-li-last' > 
   <p class="para-total">
   Total 
    (<span>per ${parsedPrice.includes('mo') ? 'month' : 'year'}</span>)
    </p>
- <span class="li-span-price">${total}</span>
+
+   <p class="para-total-bold">
+   +$<span>${total}/${parsedPrice.includes('mo') ? 'mo' : 'yr'}</span>
+    </p>
  </li>
 
 </ul>
@@ -597,12 +601,12 @@ ${parsedAddons ? parsedAddons.map(item => (
 
 <div class="btn-container">
 <button class="prev">Go Back</button>
-<button type="submit" class=" Confirm" id="submit">Confirm</button>
+<button type="submit" class="Confirm" id="submit">Confirm</button>
 </div>
 
   </div>`
 
-
+  const nextBtn = document.querySelector('.Confirm')
   const prevBtn = document.querySelector('.prev')
   const changeBtn = document.querySelector('.span-change')
 
@@ -617,5 +621,33 @@ ${parsedAddons ? parsedAddons.map(item => (
   })
 
 
+  nextBtn.addEventListener("click", () => {
+    btns[3].style.backgroundColor = ''
+    btns[3].style.color = '#FFF'
+    formPageFive()
+  })
 
+}
+
+
+
+
+
+function formPageFive() {
+  formContainer.innerHTML = `
+  <div class="content-container">
+  <div class="content">
+  <img src="./assets/images/icon-thank-you.svg" alt="thank-you" />
+
+  <div class="text-content">
+  <h1>Thank you!</h1>
+  <P>Thanks for confirming your subscription! We hope you have fun 
+using our platform. If you ever need support, please feel free 
+to email us at support@loremgaming.com.</P>
+  </div>
+  </div>
+  </div>
+  `
+
+  setTimeout(formPageOne, 5000)
 }
