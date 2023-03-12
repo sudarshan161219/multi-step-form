@@ -305,7 +305,6 @@ form {
 .btn-container {
     /* position: absolute; */
     margin-top: 5rem;
-    bottom: -50%;
     width: 100%;
     display: flex;
     justify-content: space-between;
@@ -683,4 +682,125 @@ form {
     font-weight: 400;
     color: var(--color-Coolgray);
     letter-spacing: 1.1px;
+}
+
+.wrapper-img-container {
+    display: none;
+}
+
+@media (min-width:1024px) {
+
+    body {
+        background-image: none;
+        height: fit-content;
+        display: flex;
+        justify-content: center;
+        margin: 0;
+    }
+
+    .img-container {
+        display: none;
+    }
+
+    .wrapper-img-container {
+        display: block;
+        position: relative;
+    }
+
+    .wrapper-img-container-btn {
+        position: absolute;
+        top: 50px;
+        display: grid;
+        gap: 2.1rem;
+        left: 50px;
+    }
+
+    .wrapper {
+        display: flex;
+        justify-content: center;
+        margin-top: 4rem;
+        gap: 3rem;
+    }
+
+
+    .form-container {
+        padding: 1rem;
+        position: relative;
+        width: 500px;
+    }
+
+    .content-container {
+        position: static;
+    }
+
+    .boxes {
+        display: flex;
+    }
+
+    .box {
+        display: grid;
+        gap: 2rem;
+    }
+
+    .box-list {
+        width: 200px;
+    }
+
+    .box-desktop-list {
+        width: 100%;
+    }
+
+    .btn-container {
+        position: absolute;
+        bottom: 27px;
+        width: 85%;
+    }
+
+    .boxes-desktop-li {
+        display: grid;
+    }
+
+
+    .box-desktop-li {
+        display: flex;
+    }
+
+
+    .lg-list-btn {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    .span-container {
+        display: grid;
+        gap: 0.3rem;
+    }
+
+    .lg-span-list-btn {
+        border: 1px solid var(--color-White);
+        color: var(--color-White);
+        border-radius: 50%;
+        width: 40px;
+        height: 40px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-weight: 700;
+    }
+
+    .span-bold-lg {
+        font-size: 1.1rem;
+        text-transform: uppercase;
+        font-weight: 700;
+        color: var(--color-Lightgray);
+        letter-spacing: 1.1px;
+    }
+
+    .span-light-lg {
+        font-size: 0.9rem;
+        text-transform: uppercase;
+        color: var(--color-Coolgray);
+        font-weight: 400;
+    }
 }

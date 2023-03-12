@@ -8,12 +8,13 @@ const alertName = document.querySelector('.input-name .alert')
 const alertEmail = document.querySelector('.input-email .alert')
 const alertPhone = document.querySelector('.input-phone .alert')
 const btns = document.querySelectorAll('.list-btn')
+const desktopBtns = document.querySelectorAll(".lg-span-list-btn")
 const btn = document.querySelector('#submit');
 
 window.addEventListener("load", () => {
-  // formPageOne()
-  formPageTwo()
-  formPageThree()
+  formPageOne()
+  // formPageTwo()
+  // formPageThree()
   // formPageFour()
   // formPageFive()
 });
@@ -24,13 +25,6 @@ function formPageOne() {
 
   const loaclData = localStorage.getItem("data")
   const parsedData = JSON.parse(loaclData)
-
-
-
-  // if(loaclData ) {
-  //   const { name, email, phone } = parsedData
-  //   return
-  // }
 
   formContainer.innerHTML = `
     <div class="content-container">
@@ -96,7 +90,8 @@ function formPageOne() {
     </div>`
   btns[0].style.backgroundColor = '#bfe2fd'
   btns[0].style.color = '#02295a'
-
+  desktopBtns[0].style.backgroundColor = '#bfe2fd'
+  desktopBtns[0].style.color = '#02295a'
 
   const emailI = document.getElementById('email');
   const form = document.getElementById('form');
@@ -128,6 +123,8 @@ function formPageOne() {
     if (!values.includes('')) {
       btns[0].style.backgroundColor = ''
       btns[0].style.color = '#FFF'
+      desktopBtns[0].style.backgroundColor = ''
+      desktopBtns[0].style.color = ''
       formPageTwo()
     } else {
       console.log('empty');
@@ -160,6 +157,9 @@ function formPageTwo() {
 
   btns[1].style.backgroundColor = '#bfe2fd'
   btns[1].style.color = '#02295a'
+  desktopBtns[1].style.backgroundColor = '#bfe2fd'
+  desktopBtns[1].style.color = '#02295a'
+
   formContainer.innerHTML = `
     <div class="content-container">
       <div class="info">
@@ -299,12 +299,16 @@ function formPageTwo() {
   prevBtn.addEventListener("click", () => {
     btns[1].style.backgroundColor = ''
     btns[1].style.color = '#FFF'
+    desktopBtns[1].style.backgroundColor = ''
+    desktopBtns[1].style.color = ''
     formPageOne()
   })
 
   nextBtn.addEventListener("click", () => {
     btns[1].style.backgroundColor = ''
     btns[1].style.color = '#FFF'
+    desktopBtns[1].style.backgroundColor = ''
+    desktopBtns[1].style.color = ''
     boxlistBtn.forEach((item, idx) => {
       if (item.classList.contains('box-list-style')) {
         price = spanLight[idx].innerText
@@ -328,6 +332,9 @@ function formPageThree() {
 
   btns[2].style.backgroundColor = '#bfe2fd'
   btns[2].style.color = '#02295a'
+  desktopBtns[2].style.backgroundColor = '#bfe2fd'
+  desktopBtns[2].style.color = '#02295a'
+
   formContainer.innerHTML = `
   <div class="content-container">
     <div class="info">
@@ -338,10 +345,10 @@ function formPageThree() {
      </p>
     </div>
 
-<ul class="boxes">
+<ul class="boxes boxes-desktop-li">
 
-<li class="box-list " data-index="0">
-<div class="box">
+<li class="box-list box-desktop-list" data-index="0">
+<div class="box box-desktop-li">
 <label class="container-checkbox">
   <input type="checkbox" class="checkbox">
   <span class="checkmark"></span>
@@ -365,8 +372,8 @@ ${checkParsedData ? "/mo" : '/yr'}
 </li>
 
 
-<li class="box-list" data-index="1">
-<div class="box">
+<li class="box-list box-desktop-list" data-index="1">
+<div class="box box-desktop-li">
 
 <label class="container-checkbox">
   <input type="checkbox" class="checkbox">
@@ -390,8 +397,8 @@ ${checkParsedData ? "/mo" : '/yr'}
 </li>
 
 
-<li class="box-list" data-index="2">
-<div class="box">
+<li class="box-list box-desktop-list" data-index="2">
+<div class="box box-desktop-li">
 
 <label class="container-checkbox">
   <input type="checkbox" class="checkbox">
@@ -428,14 +435,14 @@ ${checkParsedData ? "/mo" : '/yr'}
   const boxLi = document.querySelectorAll('.box-list')
   const prevBtn = document.querySelector('.prev')
   const nextBtn = document.querySelector('.submit')
-  const boxlistBtn = document.querySelectorAll('.box-list')
   const spanLight = document.querySelectorAll('.span-light')
   const spanBold = document.querySelectorAll('.span-bold')
   const spanPrice = document.querySelectorAll('.span-price')
-  const loaclData = localStorage.getItem("addons")
   const loaclNum = localStorage.getItem("addNum")
+  const localAddons = localStorage.getItem("addons")
   let listItems = []
   let listNum = []
+
 
 
   checkbox.forEach((check, idx) => (
@@ -449,15 +456,14 @@ ${checkParsedData ? "/mo" : '/yr'}
           info: spanLight[idx].innerText,
           price: spanPrice[idx].innerText,
         }
-
         listNum.push(spanPrice[idx].innerText)
         listItems.push(addOns)
         localStorage.setItem('addons', JSON.stringify(listItems));
         localStorage.setItem('addNum', JSON.stringify(listNum));
       }
 
-      if (!check.checked) {
-        loaclNum ? localStorage.removeItem("addNum") : null
+      else {
+        // loaclNum ? localStorage.removeItem("addNum") : null
         listNum.pop(spanPrice[idx].innerText)
       }
     })
@@ -467,6 +473,8 @@ ${checkParsedData ? "/mo" : '/yr'}
   prevBtn.addEventListener("click", () => {
     btns[2].style.backgroundColor = ''
     btns[2].style.color = '#FFF'
+    desktopBtns[2].style.backgroundColor = ''
+    desktopBtns[2].style.color = ''
     formPageTwo()
   })
 
@@ -475,12 +483,15 @@ ${checkParsedData ? "/mo" : '/yr'}
   nextBtn.addEventListener("click", () => {
     btns[2].style.backgroundColor = ''
     btns[2].style.color = '#FFF'
-
+  desktopBtns[2].style.backgroundColor = ''
+  desktopBtns[2].style.color = ''
     checkbox.forEach((check, idx) => {
 
       if (!check.checked) {
-        // loaclData ? localStorage.removeItem("addons") : null
         loaclNum ? localStorage.removeItem("addNum") : null
+        localAddons ? localStorage.removeItem("addons") : null
+        // listItems.pop(addOns)
+        listNum.pop(spanPrice[idx].innerText)
       }
     })
     formPageFour()
@@ -490,9 +501,11 @@ ${checkParsedData ? "/mo" : '/yr'}
 
 
 function formPageFour() {
- 
+
   btns[3].style.backgroundColor = '#bfe2fd'
   btns[3].style.color = '#02295a'
+  desktopBtns[3].style.backgroundColor = '#bfe2fd'
+  desktopBtns[3].style.color = '#02295a'
 
   const localPrice = localStorage.getItem("price")
   const plan = localStorage.getItem("plan")
@@ -503,7 +516,7 @@ function formPageFour() {
   const loaclNum = localStorage.getItem("addNum")
   const parsedDataNum = JSON.parse(loaclNum)
   let uniqueArray
-  let arr
+
   function removeDuplicates() {
     if (parsedAddons.length > 2) {
       let jsonObject = parsedAddons.map(JSON.stringify)
@@ -511,17 +524,20 @@ function formPageFour() {
       let uniqueSet = new Set(jsonObject);
       uniqueArray = Array.from(uniqueSet).map(JSON.parse);
 
-     return uniqueArray
+      return uniqueArray
     } else {
       return parsedAddons
     }
   }
-  removeDuplicates()
+  if (addOnS) {
+    removeDuplicates()
+  }
+
 
   let sum = 0;
   let strLPrice = parsedPrice.split('mo').join("").split('/').join("").split('yr').join("").split('+').join("").split('$').join("")
   let toNum = Number(strLPrice)
-  // let newArr = [...new Set(parsedAddons)]
+
 
   if (loaclNum) {
     let numberArr = parsedDataNum.map(Number)
@@ -535,11 +551,10 @@ function formPageFour() {
     array.forEach(item => {
       sum += item;
     });
-
     return sum;
   }
 
-  let total = toNum + sum
+  let total = sum + toNum
 
 
   formContainer.innerHTML = `
@@ -566,25 +581,25 @@ ${parsedPlan}
 <span class="para-span-price">$${parsedPrice}</span>
 </li>
 
-
-${parsedAddons.length > 2  ? uniqueArray.map(item => (
-    (`  <li class='plan-li' > 
+${addOnS ?
+      parsedAddons.length > 2 ? uniqueArray.map(item => (
+        (`  <li class='plan-li' > 
  <span class="li-span"> ${item.title}</span>
  <span class="li-span-price">+$${item.price}/${parsedPrice.includes('mo') ? 'mo' : 'yr'}</span>
  </li>`)
 
-  )).join('<br\>') : 
+      )).join('<br\>') :
 
-  parsedAddons.map(item => (
-    (`  <li class='plan-li' > 
+        parsedAddons.map(item => (
+          (`  <li class='plan-li' > 
  <span class="li-span"> ${item.title}</span>
  <span class="li-span-price">+$${item.price}/${parsedPrice.includes('mo') ? 'mo' : 'yr'}</span>
  </li>`)
 
-  )).join('<br\>')
-
-}
-
+        )).join('<br\>')
+      :
+      ''
+    }
   <li class='plan-li-last' > 
   <p class="para-total">
   Total 
@@ -613,6 +628,8 @@ ${parsedAddons.length > 2  ? uniqueArray.map(item => (
   prevBtn.addEventListener("click", () => {
     btns[3].style.backgroundColor = ''
     btns[3].style.color = '#FFF'
+    desktopBtns[3].style.backgroundColor = ''
+    desktopBtns[3].style.color = ''
     formPageThree()
   })
 
@@ -624,6 +641,8 @@ ${parsedAddons.length > 2  ? uniqueArray.map(item => (
   nextBtn.addEventListener("click", () => {
     btns[3].style.backgroundColor = ''
     btns[3].style.color = '#FFF'
+    desktopBtns[3].style.backgroundColor = ''
+    desktopBtns[3].style.color = ''
     formPageFive()
   })
 
